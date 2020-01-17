@@ -1,28 +1,16 @@
 require('dotenv').config();
-const mongoose = require('mongoose');
+require('./db/database');
 const express = require('express');
 const app = express();
+
+const usersRouter = require('./routes/users.router');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(
-  process.env.DATABASE_PATH,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  },
-  err => {
-    if (err) {
-      console.log('Database connection faild', process.env.DATABASE_PATH);
-      return 1;
-    }
+app.use('/api/users', usersRouter);
 
-    console.log('Connected to database at', process.env.DATABASE_PATH);
-  },
-);
-
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send(200);
 });
 
