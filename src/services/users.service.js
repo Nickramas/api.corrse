@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const userSchema = require('./../db/schemas/user.schema');
+const bcrypt = require('bcrypt');
 
 class UsersService {
   constructor() {
@@ -11,6 +12,7 @@ class UsersService {
   }
 
   async create(userDto) {
+    userDto.password = await bcrypt.hash(userDto.password, 8);
     const user = await new this.userModel(userDto);
     return user.save();
   }
