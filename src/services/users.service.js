@@ -7,11 +7,7 @@ class UsersService {
   }
 
   async get(id) {
-    if (id) {
-      return await this.userModel.findById(id);
-    }
-
-    return await this.userModel.find({}).exec();
+    return await this.userModel.findById(id);
   }
 
   async create(userDto) {

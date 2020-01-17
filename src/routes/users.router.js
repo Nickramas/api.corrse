@@ -3,9 +3,10 @@ const UserService = require('./../services/users.service');
 
 const userService = new UserService();
 
-router.get('/', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
-    const users = await userService.get();
+    const id = req.params.id;
+    const user = await userService.get(id);
 
     res.json({
       _links: {
@@ -15,7 +16,7 @@ router.get('/', async (req, res, next) => {
         },
       },
       _embedded: {
-        users: users,
+        user: user,
       },
     });
   } catch (err) {
