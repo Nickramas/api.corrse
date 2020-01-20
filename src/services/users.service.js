@@ -18,6 +18,10 @@ class UsersService {
   }
 
   async update(id, updates) {
+    if (updates.password) {
+      updates.password = await bcrypt.hash(updates.password, 8);
+    }
+
     return await this.userModel.findByIdAndUpdate(id, updates);
   }
 

@@ -67,7 +67,7 @@ router.put('/:id', async (req, res, next) => {
       },
       _embedded: {
         old: oldUser,
-        updated: updatedUser,
+        new: updatedUser,
       },
     });
   } catch (err) {
