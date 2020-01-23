@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const UserService = require('./../services/users.service');
+const checkAccessToken = require('./../middleware/auth.middleware');
 
 const userService = new UserService();
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', checkAccessToken, async (req, res, next) => {
   try {
     const id = req.params.id;
     const user = await userService.get(id);
@@ -50,7 +51,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', checkAccessToken, async (req, res, next) => {
   try {
     const id = req.params.id;
     const updates = req.body;
@@ -76,7 +77,7 @@ router.put('/:id', async (req, res, next) => {
   }
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', checkAccessToken, async (req, res, next) => {
   const id = req.params.id;
 
   const user = await userService.delete(id);

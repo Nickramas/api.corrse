@@ -23,7 +23,12 @@ class AuthService {
     }
 
     const token = jwt.sign(
-      { _id: user._id, alias: user.alias, email: user.email },
+      {
+        _id: user._id,
+        alias: user.alias,
+        email: user.email,
+        password: user.password,
+      },
       process.env.ACCESS_TOKEN_SECRET,
     );
 
